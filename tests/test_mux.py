@@ -61,8 +61,9 @@ def test_creates_sessions_of_desired_name():
 def test_can_capture_a_pane():
     name = "testcapturing"
     mux = newmux()
+    height = 50
     mux.new_session(
-        width=50, height=50, command="echo hello world; bash", name=name
+        width=50, height=height, command="echo hello world; bash", name=name
     )
     sessions = mux.sessions()
     assert name in sessions
@@ -74,7 +75,7 @@ def test_can_capture_a_pane():
     assert len(panes) == 1
     pane_contents = mux.capture_pane(panes[0])
     assert "hello world" in pane_contents
-    assert len(pane_contents.split("\n")) == 50
+    assert len(pane_contents.split("\n")) == height + 1
 
 
 def test_can_send_content_to_the_screen():
