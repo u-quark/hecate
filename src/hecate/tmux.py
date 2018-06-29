@@ -43,7 +43,7 @@ class Tmux(object):
             return subprocess.check_output(
                 cmd,
                 stderr=subprocess.STDOUT
-            ).decode('ascii')
+            ).decode()
         except subprocess.CalledProcessError as e:
             if b"failed to connect to server: Connection refused" in e.output:
                 raise DeadServer(e.output)
