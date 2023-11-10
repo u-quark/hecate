@@ -197,6 +197,14 @@ class Runner(object):
         except DeadServer:
             return self.last_screenshot
 
+    def screenshot_with_escape_sequences(self):
+        """
+        Return a bytes representing the current state of the screen
+        with escape sequences for text and background color attributes.
+        It also preserves trailing spaces at each line’s end.
+        """
+        return self.tmux.capture_pane_with_escape_sequences(0)
+
     def press(self, key):
         """
         Press the key identified by key-press. This will currently be passed

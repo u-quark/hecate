@@ -127,6 +127,11 @@ class Tmux(object):
         self.execute_command("capture-pane", "-b", buf, "-t", pane)
         return self.get_buffer(buf)
 
+    def capture_pane_with_escape_sequences(self, pane):
+        buf = self.a_buffer()
+        self.execute_command("capture-pane", "-e", "-N", "-b", buf, "-t", pane)
+        return self.get_buffer(buf)
+
     def shutdown(self):
         try:
             o = open("/dev/null")

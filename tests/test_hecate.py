@@ -34,6 +34,15 @@ def test_can_write_unicode():
         h.await_text("☃")
 
 
+def test_screenshot_with_escape_sequences():
+    with Runner(
+            "echo", "-e", "\\033[0;31mRED\\033[0;32mGREEN\\033[0;34mBLUE",
+            width=15, height=2,
+        ) as h:
+        assert h.screenshot() == "REDGREENBLUE\n\n"
+        assert h.screenshot_with_escape_sequences() == "\x1b[31mRED\x1b[32mGREEN\x1b[34mBLUE\n\n"
+
+
 def test_can_run_vim():
     f = tempfile.mktemp()
     with Runner("/usr/bin/vim") as h:
