@@ -45,8 +45,9 @@ class Tmux(object):
                 stderr=subprocess.STDOUT
             ).decode()
         except subprocess.CalledProcessError as e:
-            if b"failed to connect to server: Connection refused" in e.output\
-               or b"no server running" in e.output:
+            if b"failed to connect to server: Connection refused" in e.output \
+               or b"no server running" in e.output \
+               or b"server exited unexpectedly" in e.output:
                 raise DeadServer(e.output) from e
 
             raise CommandFailed(e.output)

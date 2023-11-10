@@ -63,7 +63,7 @@ def test_can_capture_a_pane():
     mux = newmux()
     height = 50
     mux.new_session(
-        width=50, height=height, command="echo hello world; bash", name=name
+        width=50, height=height, command="sh -c 'echo hello world; sh'", name=name
     )
     sessions = mux.sessions()
     assert name in sessions
