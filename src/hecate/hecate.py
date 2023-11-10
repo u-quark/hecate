@@ -73,7 +73,8 @@ class Runner(object):
         self,
         *command,
         width=80, height=24,
-        wait_interval=0.01, default_timeout=1
+        wait_interval=0.01, default_timeout=1,
+        env=None,
     ):
         """
         Hecate will run the command line arguments specified by command (
@@ -112,7 +113,8 @@ class Runner(object):
                         shlex.quote, [
                             sys.executable,
                             RUNNER_PROGRAM, self.report_file
-                        ] + list(command)))
+                        ] + list(command))),
+                env=env
             )
             sessions = [
                 l.strip() for l in self.tmux.execute_command(

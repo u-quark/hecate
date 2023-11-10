@@ -52,7 +52,7 @@ class Tmux(object):
             raise CommandFailed(e.output)
 
     def new_session(
-        self, width=80, height=24, window=None, name=None, command=None
+        self, width=80, height=24, window=None, name=None, command=None, env=None
     ):
         arguments = ["new-session", "-d", "-x", width, "-y", height]
         if window is not None:
@@ -61,6 +61,9 @@ class Tmux(object):
             ])
         if name is not None:
             arguments.extend(["-s", name])
+        if env is not None:
+            for name, value in env.items():
+                arguments.extend(["-e", f"{name}={value}"])
         if command is not None:
             arguments.append(command)
         self.execute_command(*arguments)

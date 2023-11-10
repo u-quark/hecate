@@ -34,6 +34,11 @@ def test_can_write_unicode():
         h.await_text("☃")
 
 
+def test_can_use_env_vars():
+    with Runner("sh", "-c", "echo $TEST; sleep 60s", env={"TEST": "thisisatest"}) as h:
+        h.await_text("thisisatest")
+
+
 def test_screenshot_with_escape_sequences():
     with Runner(
             "echo", "-e", "\\033[0;31mRED\\033[0;32mGREEN\\033[0;34mBLUE",
