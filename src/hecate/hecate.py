@@ -207,13 +207,13 @@ class Runner(object):
         """
         return self.tmux.capture_pane_with_escape_sequences(0)
 
-    def press(self, key):
+    def press(self, *keys):
         """
-        Press the key identified by key-press. This will currently be passed
+        Press the key(s) identified by key-press. This will currently be passed
         uninterpreted to tmux, which will assign its own meaning to it. So e.g
         Enter will be the enter key, C-d will send EOF, etc.
         """
-        self.tmux.send_key(0, key)
+        self.tmux.send_keys(0, keys)
 
     def write(self, text):
         """
