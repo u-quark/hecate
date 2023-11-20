@@ -27,8 +27,9 @@ TMUX = os.getenv("HECATE_TMUX_BINARY") or "tmux"
 
 
 class Tmux(object):
-    def __init__(self, name):
+    def __init__(self, name, conf_file=None):
         self.name = name
+        self.conf_file = conf_file
         try:
             subprocess.check_output(
                 [TMUX, "-u", "-L", self.name, "list-sessions"],
@@ -39,7 +40,10 @@ class Tmux(object):
 
     def execute_command(self, *command):
         try:
-            cmd = [TMUX, "-u", "-f", os.devnull, "-L", self.name] + list(map(str, command))
+            cmd = (
+                [TMUX, "-u", "-f", self.conf_file or os.devnull, "-L", self.name] +
+                list(map(str, command))
+            )
             return subprocess.check_output(
                 cmd,
                 stderr=subprocess.STDOUT

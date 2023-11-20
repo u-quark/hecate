@@ -75,6 +75,7 @@ class Runner(object):
         width=80, height=24,
         wait_interval=0.01, default_timeout=1,
         env=None,
+        tmux_conf=None,
     ):
         """
         Hecate will run the command line arguments specified by command (
@@ -97,7 +98,7 @@ class Runner(object):
         self.has_shutdown = False
         self.tmux_id = binascii.hexlify(os.urandom(8)).decode('ascii')
         self.exit_seen = False
-        self.tmux = Tmux(self.tmux_id)
+        self.tmux = Tmux(self.tmux_id, conf_file=tmux_conf)
         try:
             self.report_file = os.path.join(
                 hecate_temp_dir(), self.tmux_id
