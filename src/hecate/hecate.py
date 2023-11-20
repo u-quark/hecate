@@ -75,6 +75,7 @@ class Runner(object):
         width=80, height=24,
         wait_interval=0.01, default_timeout=1,
         env=None,
+        cwd=None,
         tmux_conf=None,
     ):
         """
@@ -115,7 +116,8 @@ class Runner(object):
                             sys.executable,
                             RUNNER_PROGRAM, self.report_file
                         ] + list(command))),
-                env=env
+                env=env,
+                cwd=cwd,
             )
             sessions = [
                 l.strip() for l in self.tmux.execute_command(
